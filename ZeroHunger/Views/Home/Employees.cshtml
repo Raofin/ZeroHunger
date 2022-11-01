@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Employees";
+}
+
+<div>
+
+    <div class="text-center">
+        <h1>WELCOME</h1><br />
+        <h3>
+            <a href="/home/AddEmployees">Add Employees</a>
+        </h3>
+    </div>
+
+    <table class="table table-bordered">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Age</th>
+            <th>Sex</th>
+            <th class="text-center" colspan="2">Action</th>
+        </tr>
+
+        @foreach (var item in Model) {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Email</td>
+                <td>@item.Age</td>
+                <td>@item.Sex</td>
+                <td><a href="/home/UpdateEmployee/@item.Id">Update</a></td>
+                <td><a href="/home/DeleteEmployee/@item.Id">Delete</a></td>
+            </tr>
+        }
+    </table>
+</div>
