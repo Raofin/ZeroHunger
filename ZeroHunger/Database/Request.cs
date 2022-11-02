@@ -25,6 +25,7 @@ namespace ZeroHunger.Database
         public string Description { get; set; }
         public System.DateTime Expiry_Date { get; set; }
         public bool Collected { get; set; }
+        public string Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }

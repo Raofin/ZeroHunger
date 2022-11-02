@@ -129,6 +129,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RestaurantsController.cs" />
     <Compile Include="Database\Collection.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -235,6 +236,9 @@
     <Content Include="Views\Home\Employees.cshtml" />
     <Content Include="Views\Home\AddEmployees.cshtml" />
     <Content Include="Views\Home\UpdateEmployee.cshtml" />
+    <Content Include="Views\Restaurants\Index.cshtml" />
+    <Content Include="Views\Restaurants\MakeRequest.cshtml" />
+    <Content Include="Views\Restaurants\ViewRequests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

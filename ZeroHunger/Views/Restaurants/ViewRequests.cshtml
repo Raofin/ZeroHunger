@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "ViewRequests";
+}
+
+<div>
+    <h2>@Model.Name</h2>
+    <h2>@Model.Location</h2>
+    <h3>Requests</h3>
+
+    <table class="table table-bordered">
+        <tr>
+            <th>Id</th>
+            <th>Description</th>
+            <th>Expire Date</th>
+            <th>Action</th>
+        </tr>
+
+        @foreach (var item in ViewBag.Requests)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Description</td>
+                <td>@item.Expiry_Date</td>
+                @if (item.Status != "Not Collected") {
+                    <td>@item.Status</td>
+                } else {
+                    <td><a href="/Restaurants/Collect/@item.Id">Collect</a></td>
+                }
+            </tr>
+        }
+    </table>
+</div>

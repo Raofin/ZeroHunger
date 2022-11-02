@@ -27,10 +27,10 @@ namespace ZeroHunger.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddEmployees(Employee employee)
+        public ActionResult AddEmployees(Employee model)
         {
             var db = new ZeroHungerEntities();
-            db.Employees.Add(employee);
+            db.Employees.Add(model);
             db.SaveChanges();
             return RedirectToAction("Employees", "Home");
         }

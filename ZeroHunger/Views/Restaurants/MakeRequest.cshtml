@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "MakeRequest";
+}
+
+<h2>MakeRequest</h2>
+<br />
+<div>
+    <form method="post" id="login">
+        <div class="form-group">
+            <label for="name">Restaurant Name</label>
+            <input type="text" class="form-control" id="name" name="name" value="@Model.Name" disabled>
+        </div>
+        <div class="form-group">
+            <label for="description">Request Description</label>
+            <textarea class="form-control"  id="description" name="description" rows="4" cols="50" maxlength="200" placeholder="Enter request description here"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="expire">Expire Date</label>
+            <input type="datetime-local" class="form-control" id="expire" name="expire">
+        </div>
+        <button type="submit" class="btn btn-primary">Post Request</button>
+    </form>
+</div>

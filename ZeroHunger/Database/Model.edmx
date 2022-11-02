@@ -12,7 +12,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Order_Id" Type="int" Nullable="false" />
           <Property Name="Employee_Id" Type="int" Nullable="false" />
-          <Property Name="Collection_Time" Type="datetime" Nullable="false" />
+          <Property Name="Collection_Time" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="Employees">
           <Key>
@@ -31,8 +31,8 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Request_Id" Type="int" Nullable="false" />
           <Property Name="Employee_id" Type="int" Nullable="false" />
-          <Property Name="Order_Date" Type="datetime" Nullable="false" />
-          <Property Name="Is_Collected" Type="bit" Nullable="false" />
+          <Property Name="Order_Date" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="Requests">
           <Key>
@@ -41,8 +41,8 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Restaurants_Id" Type="int" Nullable="false" />
           <Property Name="Description" Type="text" Nullable="false" />
-          <Property Name="Expiry_Date" Type="datetime" Nullable="false" />
-          <Property Name="Collected" Type="bit" Nullable="false" />
+          <Property Name="Expiry_Date" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="Restaurants">
           <Key>
@@ -149,7 +149,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Order_Id" Type="Int32" Nullable="false" />
-          <Property Name="Collection_Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Collection_Time" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="Order" Relationship="Self.FK_Collections_Orders" FromRole="Collections" ToRole="Orders" />
           <Property Name="Employee_Id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Employee" Relationship="ZeroHungerModel.FK_Collections_Employees" FromRole="Collection" ToRole="Employee" />
@@ -173,11 +173,12 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Request_Id" Type="Int32" Nullable="false" />
           <Property Name="Employee_id" Type="Int32" Nullable="false" />
-          <Property Name="Order_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Order_Date" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Is_Collected" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Collections" Relationship="Self.FK_Collections_Orders" FromRole="Orders" ToRole="Collections" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Orders_Employees" FromRole="Orders" ToRole="Employees" />
           <NavigationProperty Name="Request" Relationship="Self.FK_Orders_Requests" FromRole="Orders" ToRole="Requests" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Request">
           <Key>
@@ -186,10 +187,11 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Restaurants_Id" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Expiry_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Expiry_Date" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Collected" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Requests" FromRole="Requests" ToRole="Orders" />
           <NavigationProperty Name="Restaurant" Relationship="Self.FK_Requests_Restaurants" FromRole="Requests" ToRole="Restaurants" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Restaurant">
           <Key>
@@ -317,22 +319,22 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="ZeroHungerModel.Order">
               <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Request_Id" ColumnName="Request_Id" />
                 <ScalarProperty Name="Employee_id" ColumnName="Employee_id" />
                 <ScalarProperty Name="Order_Date" ColumnName="Order_Date" />
-                <ScalarProperty Name="Is_Collected" ColumnName="Is_Collected" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Requests">
             <EntityTypeMapping TypeName="ZeroHungerModel.Request">
               <MappingFragment StoreEntitySet="Requests">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Restaurants_Id" ColumnName="Restaurants_Id" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Expiry_Date" ColumnName="Expiry_Date" />
-                <ScalarProperty Name="Collected" ColumnName="Collected" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

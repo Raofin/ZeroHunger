@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div>
+    <div class="text-center">
+        <h1>WELCOME</h1><br />
+    </div>
+
+    <table class="table table-bordered">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Requests</th>
+            <th class="text-center" colspan="2">Action</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Location</td>
+                <td>@item.Requests.Count / 5</td>
+                <td><a href="/Restaurants/ViewRequest/@item.Id">View Requests</a></td>
+                <td><a href="/Restaurants/MakeRequest/@item.Id">Make New Requests</a></td>
+            </tr>
+        }
+    </table>
+</div>
+
