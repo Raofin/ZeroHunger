@@ -24,7 +24,6 @@ namespace ZeroHunger.Database
         public int Request_Id { get; set; }
         public int Employee_id { get; set; }
         public System.DateTime Order_Date { get; set; }
-        public bool Is_Collected { get; set; }
         public string Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

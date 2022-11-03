@@ -22,12 +22,20 @@
                 <td>@item.Id</td>
                 <td>@item.Description</td>
                 <td>@item.Expiry_Date</td>
-                @if (item.Status != "Not Collected") {
+                @if (item.Status != "Waiting") {
                     <td>@item.Status</td>
                 } else {
-                    <td><a href="/Restaurants/Collect/@item.Id">Collect</a></td>
+                    <td><a class="btn btn-primary" href="/Employees/Order/@item.Id">Collect</a></td>
                 }
             </tr>
         }
     </table>
+    
+    <div class="text-center">
+        @foreach (var item in ViewBag.Restaurants)
+        {
+            <a href="/Restaurants/ViewRequests/@item.Id"  class="btn btn-primary">@item.Name</a>
+        }
+    </div>
+    
 </div>

@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Order";
+}
+
+<h2>Order</h2>
+<br />
+<div>
+    <h2>Restaurant Name: @Model.Restaurant.Name</h2>
+    <h2>Restaurant Location: @Model.Restaurant.Location</h2>
+
+    <p><b>Request ID: </b>@Model.Id</p>
+    <p><b>Description: </b>@Model.Description</p>
+    <p><b>Expiry Date: </b>@Model.Expiry_Date</p>
+
+    @*<form method="post" id="login">
+            <label for="employees">Employees</label>
+            <select class="form-control" name="Employees" id="employees">
+                <option>Select Employee...</option>
+                @foreach (var item in ViewBag.Employees)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+        <button type="submit" class="btn btn-primary">Post Order</button>
+        </form>*@
+    <h1>@Model.Status</h1>
+
+    @if (Model.Status == "Collected")
+    {
+        <h1>This order has already been collected.</h1>
+    }
+    else if (Model.Status == "Pending")
+    {
+        <h1>This order has already been sent to an employee.</h1>
+    }
+    else
+    {
+        <h1>Employees List</h1>
+        <table class="table table-bordered">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Total Orders</th>
+                <th>Action</th>
+            </tr>
+
+            @foreach (var item in ViewBag.Employees)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Email</td>
+                    <td>@item.Orders.Count</td>
+                    <td>
+                        <a href="/Employees/SendOrder?id=@item.Id&requestId=@Model.Id" class="btn btn-primary">Send Order</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+</div>
+

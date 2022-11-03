@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ZeroHungerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ZeroHungerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Collections">
           <Key>
             <PropertyRef Name="Id" />
@@ -139,7 +139,8 @@
             <End Role="Requests" EntitySet="Requests" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ZeroHungerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -149,10 +150,10 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Order_Id" Type="Int32" Nullable="false" />
-          <Property Name="Collection_Time" Type="DateTime" Nullable="false" Precision="7" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_Collections_Orders" FromRole="Collections" ToRole="Orders" />
           <Property Name="Employee_Id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="ZeroHungerModel.FK_Collections_Employees" FromRole="Collection" ToRole="Employee" />
+          <Property Name="Collection_Time" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Collections_Employees" FromRole="Collections" ToRole="Employees" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_Collections_Orders" FromRole="Collections" ToRole="Orders" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -163,8 +164,8 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Age" Type="Int32" Nullable="false" />
           <Property Name="Sex" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Collections" Relationship="Self.FK_Collections_Employees" FromRole="Employees" ToRole="Collections" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Employees" FromRole="Employees" ToRole="Orders" />
-          <NavigationProperty Name="Collections" Relationship="ZeroHungerModel.FK_Collections_Employees" FromRole="Employee" ToRole="Collection" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -174,11 +175,10 @@
           <Property Name="Request_Id" Type="Int32" Nullable="false" />
           <Property Name="Employee_id" Type="Int32" Nullable="false" />
           <Property Name="Order_Date" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="Is_Collected" Type="Boolean" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Collections" Relationship="Self.FK_Collections_Orders" FromRole="Orders" ToRole="Collections" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Orders_Employees" FromRole="Orders" ToRole="Employees" />
           <NavigationProperty Name="Request" Relationship="Self.FK_Orders_Requests" FromRole="Orders" ToRole="Requests" />
-          <Property Name="Status" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Request">
           <Key>
@@ -188,10 +188,9 @@
           <Property Name="Restaurants_Id" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Expiry_Date" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="Collected" Type="Boolean" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Requests" FromRole="Requests" ToRole="Orders" />
           <NavigationProperty Name="Restaurant" Relationship="Self.FK_Requests_Restaurants" FromRole="Requests" ToRole="Restaurants" />
-          <Property Name="Status" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Restaurant">
           <Key>
@@ -202,6 +201,18 @@
           <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Requests" Relationship="Self.FK_Requests_Restaurants" FromRole="Restaurants" ToRole="Requests" />
         </EntityType>
+        <Association Name="FK_Collections_Employees">
+          <End Role="Employees" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Collections" Type="Self.Collection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Collections">
+              <PropertyRef Name="Employee_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Collections_Orders">
           <End Role="Orders" Type="Self.Order" Multiplicity="1" />
           <End Role="Collections" Type="Self.Collection" Multiplicity="*" />
@@ -256,6 +267,10 @@
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="Requests" EntityType="Self.Request" />
           <EntitySet Name="Restaurants" EntityType="Self.Restaurant" />
+          <AssociationSet Name="FK_Collections_Employees" Association="Self.FK_Collections_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Collections" EntitySet="Collections" />
+          </AssociationSet>
           <AssociationSet Name="FK_Collections_Orders" Association="Self.FK_Collections_Orders">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="Collections" EntitySet="Collections" />
@@ -272,23 +287,7 @@
             <End Role="Restaurants" EntitySet="Restaurants" />
             <End Role="Requests" EntitySet="Requests" />
           </AssociationSet>
-          <AssociationSet Name="FK_Collections_Employees" Association="ZeroHungerModel.FK_Collections_Employees">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="Collection" EntitySet="Collections" />
-          </AssociationSet>
         </EntityContainer>
-        <Association Name="FK_Collections_Employees">
-          <End Type="ZeroHungerModel.Employee" Role="Employee" Multiplicity="1" />
-          <End Type="ZeroHungerModel.Collection" Role="Collection" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Collection">
-              <PropertyRef Name="Employee_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -298,9 +297,9 @@
           <EntitySetMapping Name="Collections">
             <EntityTypeMapping TypeName="ZeroHungerModel.Collection">
               <MappingFragment StoreEntitySet="Collections">
-                <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
+                <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
                 <ScalarProperty Name="Collection_Time" ColumnName="Collection_Time" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -319,22 +318,22 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="ZeroHungerModel.Order">
               <MappingFragment StoreEntitySet="Orders">
-                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Request_Id" ColumnName="Request_Id" />
                 <ScalarProperty Name="Employee_id" ColumnName="Employee_id" />
                 <ScalarProperty Name="Order_Date" ColumnName="Order_Date" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Requests">
             <EntityTypeMapping TypeName="ZeroHungerModel.Request">
               <MappingFragment StoreEntitySet="Requests">
-                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Restaurants_Id" ColumnName="Restaurants_Id" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Expiry_Date" ColumnName="Expiry_Date" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
