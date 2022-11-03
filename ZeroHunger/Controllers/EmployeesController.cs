@@ -93,11 +93,39 @@ namespace ZeroHunger.Controllers
 
             foreach (var order in orders.ToList())
             {
-                if (order.Status == "Collected")
+                if (order.Status != "Pending")
                     orders.Remove(order);
             }
 
             return View(orders);
+        }
+
+        [HttpGet]
+        public ActionResult Collect(int id)
+        {
+            var db = new ZeroHungerEntities();
+            var order = db.Orders.SingleOrDefault(o => o.Id == id);
+            var request = db.Requests.SingleOrDefault(r => r.Id == order.Request_Id);
+
+            if (order != null)
+            {
+                order.Status = "Collected";
+                db.Histories.Add(new History {
+                    Order_Id = order.Id,
+                    Employee_Id = order.Employee_id,
+                    Collection_Time = DateTime.Now
+                });
+            }
+
+            if (request != null)
+            {
+                request.Status = "Collected";
+            }
+
+            db.SaveChanges();
+
+
+            return RedirectToAction("CollectOrders/" + order.Employee_id, "Employees");
         }
     }
 }

@@ -64,25 +64,19 @@ namespace ZeroHunger.Controllers
         [HttpPost]
         public ActionResult UpdateEmployee(Employee model)
         {
-            using (var db = new ZeroHungerEntities())
-            {
-                var employee = db.Employees.SingleOrDefault(e => e.Id == model.Id);
+            var db = new ZeroHungerEntities();
+            var employee = db.Employees.SingleOrDefault(e => e.Id == model.Id);
 
-                if (employee != null)
-                {
-                    employee.Name = model.Name;
-                    employee.Email = model.Email;
-                    employee.Age = model.Age;
-                    employee.Sex = model.Sex;
-                    db.SaveChanges();
-                }
+            if (employee != null)
+            {
+                employee.Name = model.Name;
+                employee.Email = model.Email;
+                employee.Age = model.Age;
+                employee.Sex = model.Sex;
+                db.SaveChanges();
             }
 
             return RedirectToAction("Employees", "Home");
         }
-
-
-
-
     }
 }

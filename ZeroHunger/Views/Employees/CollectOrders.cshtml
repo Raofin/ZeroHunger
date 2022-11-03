@@ -10,9 +10,9 @@
         <tr>
             <th>Id</th>
             <th>Request Id</th>
-            <th>Employee Id</th>
-            <th>Employee Name</th>
-            <th>Status</th>
+            <th>Description</th>
+            <th>Restaurant Name</th>
+            <th>Action</th>
         </tr>
 
         @foreach (var item in Model)
@@ -20,9 +20,9 @@
             <tr>
                 <td>@item.Id</td>
                 <td>@item.Request_Id</td>
-                <td>@item.Employee_id</td>
-                <td>@item.Employee.Name</td>
-                <td>@item.Status</td>
+                <td>Description</td>
+                <td>Res Name</td>
+                <td><a href="/Employees/Collect/@item.Id">Collect</a></td>
             </tr>
         }
     </table>
