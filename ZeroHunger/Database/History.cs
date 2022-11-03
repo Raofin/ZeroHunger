@@ -12,7 +12,7 @@ namespace ZeroHunger.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class Collection
+    public partial class History
     {
         public int Id { get; set; }
         public int Order_Id { get; set; }

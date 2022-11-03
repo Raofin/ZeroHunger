@@ -17,7 +17,7 @@ namespace ZeroHunger.Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Order()
         {
-            this.Collections = new HashSet<Collection>();
+            this.Histories = new HashSet<History>();
         }
     
         public int Id { get; set; }
@@ -26,9 +26,9 @@ namespace ZeroHunger.Database
         public System.DateTime Order_Date { get; set; }
         public string Status { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Collection> Collections { get; set; }
         public virtual Employee Employee { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<History> Histories { get; set; }
         public virtual Request Request { get; set; }
     }
 }

@@ -25,8 +25,8 @@ namespace ZeroHunger.Database
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Collection> Collections { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<History> Histories { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Request> Requests { get; set; }
         public virtual DbSet<Restaurant> Restaurants { get; set; }

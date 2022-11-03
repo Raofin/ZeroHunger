@@ -5,15 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="ZeroHungerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Collections">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Order_Id" Type="int" Nullable="false" />
-          <Property Name="Employee_Id" Type="int" Nullable="false" />
-          <Property Name="Collection_Time" Type="datetime2" Precision="7" Nullable="false" />
-        </EntityType>
         <EntityType Name="Employees">
           <Key>
             <PropertyRef Name="Id" />
@@ -23,6 +14,15 @@
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Age" Type="int" Nullable="false" />
           <Property Name="Sex" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Order_Id" Type="int" Nullable="false" />
+          <Property Name="Employee_Id" Type="int" Nullable="false" />
+          <Property Name="Collection_Time" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -54,24 +54,24 @@
         </EntityType>
         <Association Name="FK_Collections_Employees">
           <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
-          <End Role="Collections" Type="Self.Collections" Multiplicity="*" />
+          <End Role="History" Type="Self.History" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employees">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Collections">
+            <Dependent Role="History">
               <PropertyRef Name="Employee_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Collections_Orders">
           <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
-          <End Role="Collections" Type="Self.Collections" Multiplicity="*" />
+          <End Role="History" Type="Self.History" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Orders">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Collections">
+            <Dependent Role="History">
               <PropertyRef Name="Order_Id" />
             </Dependent>
           </ReferentialConstraint>
@@ -113,18 +113,18 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ZeroHungerModelStoreContainer">
-          <EntitySet Name="Collections" EntityType="Self.Collections" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="History" EntityType="Self.History" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Requests" EntityType="Self.Requests" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Restaurants" EntityType="Self.Restaurants" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Collections_Employees" Association="Self.FK_Collections_Employees">
             <End Role="Employees" EntitySet="Employees" />
-            <End Role="Collections" EntitySet="Collections" />
+            <End Role="History" EntitySet="History" />
           </AssociationSet>
           <AssociationSet Name="FK_Collections_Orders" Association="Self.FK_Collections_Orders">
             <End Role="Orders" EntitySet="Orders" />
-            <End Role="Collections" EntitySet="Collections" />
+            <End Role="History" EntitySet="History" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_Employees" Association="Self.FK_Orders_Employees">
             <End Role="Employees" EntitySet="Employees" />
@@ -144,17 +144,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ZeroHungerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Collection">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Order_Id" Type="Int32" Nullable="false" />
-          <Property Name="Employee_Id" Type="Int32" Nullable="false" />
-          <Property Name="Collection_Time" Type="DateTime" Nullable="false" Precision="7" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_Collections_Employees" FromRole="Collections" ToRole="Employees" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_Collections_Orders" FromRole="Collections" ToRole="Orders" />
-        </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="Id" />
@@ -164,8 +153,19 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Age" Type="Int32" Nullable="false" />
           <Property Name="Sex" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Collections" Relationship="Self.FK_Collections_Employees" FromRole="Employees" ToRole="Collections" />
+          <NavigationProperty Name="Histories" Relationship="Self.FK_Collections_Employees" FromRole="Employees" ToRole="History" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Employees" FromRole="Employees" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Order_Id" Type="Int32" Nullable="false" />
+          <Property Name="Employee_Id" Type="Int32" Nullable="false" />
+          <Property Name="Collection_Time" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Collections_Employees" FromRole="History" ToRole="Employees" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_Collections_Orders" FromRole="History" ToRole="Orders" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -176,8 +176,8 @@
           <Property Name="Employee_id" Type="Int32" Nullable="false" />
           <Property Name="Order_Date" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Collections" Relationship="Self.FK_Collections_Orders" FromRole="Orders" ToRole="Collections" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Orders_Employees" FromRole="Orders" ToRole="Employees" />
+          <NavigationProperty Name="Histories" Relationship="Self.FK_Collections_Orders" FromRole="Orders" ToRole="History" />
           <NavigationProperty Name="Request" Relationship="Self.FK_Orders_Requests" FromRole="Orders" ToRole="Requests" />
         </EntityType>
         <EntityType Name="Request">
@@ -203,25 +203,13 @@
         </EntityType>
         <Association Name="FK_Collections_Employees">
           <End Role="Employees" Type="Self.Employee" Multiplicity="1" />
-          <End Role="Collections" Type="Self.Collection" Multiplicity="*" />
+          <End Role="History" Type="Self.History" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employees">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Collections">
+            <Dependent Role="History">
               <PropertyRef Name="Employee_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Collections_Orders">
-          <End Role="Orders" Type="Self.Order" Multiplicity="1" />
-          <End Role="Collections" Type="Self.Collection" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Orders">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Collections">
-              <PropertyRef Name="Order_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -234,6 +222,18 @@
             </Principal>
             <Dependent Role="Orders">
               <PropertyRef Name="Employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Collections_Orders">
+          <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+          <End Role="History" Type="Self.History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="History">
+              <PropertyRef Name="Order_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -262,22 +262,22 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ZeroHungerEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Collections" EntityType="Self.Collection" />
           <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Histories" EntityType="Self.History" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="Requests" EntityType="Self.Request" />
           <EntitySet Name="Restaurants" EntityType="Self.Restaurant" />
           <AssociationSet Name="FK_Collections_Employees" Association="Self.FK_Collections_Employees">
             <End Role="Employees" EntitySet="Employees" />
-            <End Role="Collections" EntitySet="Collections" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Collections_Orders" Association="Self.FK_Collections_Orders">
-            <End Role="Orders" EntitySet="Orders" />
-            <End Role="Collections" EntitySet="Collections" />
+            <End Role="History" EntitySet="Histories" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_Employees" Association="Self.FK_Orders_Employees">
             <End Role="Employees" EntitySet="Employees" />
             <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Collections_Orders" Association="Self.FK_Collections_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="History" EntitySet="Histories" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_Requests" Association="Self.FK_Orders_Requests">
             <End Role="Requests" EntitySet="Requests" />
@@ -294,16 +294,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ZeroHungerModelStoreContainer" CdmEntityContainer="ZeroHungerEntities">
-          <EntitySetMapping Name="Collections">
-            <EntityTypeMapping TypeName="ZeroHungerModel.Collection">
-              <MappingFragment StoreEntitySet="Collections">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
-                <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
-                <ScalarProperty Name="Collection_Time" ColumnName="Collection_Time" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="ZeroHungerModel.Employee">
               <MappingFragment StoreEntitySet="Employees">
@@ -312,6 +302,16 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Age" ColumnName="Age" />
                 <ScalarProperty Name="Sex" ColumnName="Sex" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Histories">
+            <EntityTypeMapping TypeName="ZeroHungerModel.History">
+              <MappingFragment StoreEntitySet="History">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
+                <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
+                <ScalarProperty Name="Collection_Time" ColumnName="Collection_Time" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

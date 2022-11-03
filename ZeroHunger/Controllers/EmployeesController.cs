@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebGrease.Css.Ast.Selectors;
 using ZeroHunger.Database;
 
 namespace ZeroHunger.Controllers
@@ -48,20 +50,54 @@ namespace ZeroHunger.Controllers
             return RedirectToAction("ViewRequests/" + id, "Restaurants");
         }
 
-        /*[HttpPost]
-        public ActionResult Order(FormCollection form)
+        [HttpGet]
+        public ActionResult CollectionHistory()
         {
-            /*var db = new ZeroHungerEntities();
-            db.Requests.Add(new Order {
-                Request_Id = Convert.ToInt32(form["Employees"]),
-                Employee_id = model["Employees"],
-                Expiry_Date = model.Expiry_Date,
-                Status = "Pending"
-            });
-            db.SaveChanges();#1#
+            var db = new ZeroHungerEntities();
+            return View(db.Histories.ToList());
+        }
 
-            return RedirectToAction("Index", "Restaurants");
-        }*/
+        [HttpGet]
+        public ActionResult Orders()
+        {
+            var db = new ZeroHungerEntities();
+            var employees = (from employee in db.Employees.ToList()
+                             from order in db.Orders.ToList()
+                             where employee.Id == order.Employee_id && order.Status == "Pending"
+                             select employee).ToList();
 
+            /*var orders = db.Orders.ToList();
+            var employeeModel = new List<Employee>(); 
+
+            foreach (var employee in employees)
+            {
+                foreach (var order in orders)
+                {
+                    if (employee.Id == order.Employee_id && order.Status == "Pending")
+                    {
+                        employeeModel.Add(employee);
+                    }
+                }
+            }*/
+
+            return View(employees);
+        }
+
+        [HttpGet]
+        public ActionResult CollectOrders(int id)
+        {
+            var db = new ZeroHungerEntities();
+            var orders = (from order in db.Orders
+                          where order.Employee_id == id
+                          select order).ToList();
+
+            foreach (var order in orders.ToList())
+            {
+                if (order.Status == "Collected")
+                    orders.Remove(order);
+            }
+
+            return View(orders);
+        }
     }
 }

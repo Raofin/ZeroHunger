@@ -131,10 +131,10 @@
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RestaurantsController.cs" />
-    <Compile Include="Database\Collection.cs">
+    <Compile Include="Database\Employee.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Database\Employee.cs">
+    <Compile Include="Database\History.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\Model.Context.cs">
@@ -239,6 +239,9 @@
     <Content Include="Views\Restaurants\MakeRequest.cshtml" />
     <Content Include="Views\Restaurants\ViewRequests.cshtml" />
     <Content Include="Views\Employees\Order.cshtml" />
+    <Content Include="Views\Employees\CollectionHistory.cshtml" />
+    <Content Include="Views\Employees\Orders.cshtml" />
+    <Content Include="Views\Employees\CollectOrders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "CollectOrders";
+}
+
+<h2>CollectOrders</h2>
+
+<div>
+    <table class="table table-bordered">
+        <tr>
+            <th>Id</th>
+            <th>Request Id</th>
+            <th>Employee Id</th>
+            <th>Employee Name</th>
+            <th>Status</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Request_Id</td>
+                <td>@item.Employee_id</td>
+                <td>@item.Employee.Name</td>
+                <td>@item.Status</td>
+            </tr>
+        }
+    </table>
+</div>

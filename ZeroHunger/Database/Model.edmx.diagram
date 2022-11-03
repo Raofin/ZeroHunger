@@ -4,15 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8899c3ca3b1741f89945ed23a26ce337" Name="Diagram1" ZoomLevel="108">
-        <EntityTypeShape EntityType="ZeroHungerModel.Collection" Width="1.5" PointX="4.75" PointY="0.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ZeroHungerModel.Employee" Width="1.5" PointX="4.75" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ZeroHungerModel.Order" Width="1.5" PointX="2.75" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ZeroHungerModel.Request" Width="1.5" PointX="0.625" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ZeroHungerModel.Restaurant" Width="1.5" PointX="0.625" PointY="0.625" IsExpanded="true" />
+      <Diagram DiagramId="27a069890d4f44d9b420be30b991ec32" Name="Diagram1" ZoomLevel="111">
+        <EntityTypeShape EntityType="ZeroHungerModel.Employee" Width="1.5" PointX="5" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZeroHungerModel.History" Width="1.5" PointX="5" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZeroHungerModel.Order" Width="1.5" PointX="2.875" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZeroHungerModel.Request" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZeroHungerModel.Restaurant" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="ZeroHungerModel.FK_Collections_Employees" ManuallyRouted="false" />
-        <AssociationConnector Association="ZeroHungerModel.FK_Collections_Orders" ManuallyRouted="false" />
         <AssociationConnector Association="ZeroHungerModel.FK_Orders_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="ZeroHungerModel.FK_Collections_Orders" ManuallyRouted="false" />
         <AssociationConnector Association="ZeroHungerModel.FK_Orders_Requests" ManuallyRouted="false" />
         <AssociationConnector Association="ZeroHungerModel.FK_Requests_Restaurants" ManuallyRouted="false" />
       </Diagram>
