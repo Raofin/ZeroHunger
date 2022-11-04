@@ -13,7 +13,7 @@
             <th>Id</th>
             <th>Description</th>
             <th>Expire Date</th>
-            <th>Action</th>
+            <th>Order</th>
         </tr>
 
         @foreach (var item in ViewBag.Requests)
@@ -25,7 +25,7 @@
                 @if (item.Status != "Waiting") {
                     <td>@item.Status</td>
                 } else {
-                    <td><a class="btn btn-primary" href="/Employees/Order/@item.Id">Collect</a></td>
+                    <td><a class="btn btn-primary" href="/Orders/Order/@item.Id">Send Employee</a></td>
                 }
             </tr>
         }

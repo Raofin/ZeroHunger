@@ -13,17 +13,20 @@
             <th>Id</th>
             <th>Name</th>
             <th>Location</th>
-            <th>Requests</th>
+            <th>Total Requests</th>
+            <th>Not Collected / Pending</th>
             <th class="text-center" colspan="2">Action</th>
         </tr>
 
         @foreach (var item in Model)
         {
+            var pending = item.Requests.Count - item.Histories.Count;
             <tr>
                 <td>@item.Id</td>
                 <td>@item.Name</td>
                 <td>@item.Location</td>
-                <td>@item.Requests.Count / 5</td>
+                <td>@item.Requests.Count</td>
+                <td>@pending / 10</td>
                 <td><a href="/Restaurants/ViewRequests/@item.Id">View Requests</a></td>
                 <td><a href="/Restaurants/MakeRequest/@item.Id">Make New Requests</a></td>
             </tr>

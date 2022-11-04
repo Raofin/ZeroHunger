@@ -1,4 +1,6 @@
 ﻿
+
+
 @{
     ViewBag.Title = "Orders";
 }
@@ -23,7 +25,7 @@
                 <td>@item.Name</td>
                 <td>@item.Histories.Count</td>
                 <td>@pendingOrders / 5</td>
-                <td><a href="/Employees/CollectOrders/@item.Id">Collect</a></td>
+                <td><a href="/Orders/CollectOrders/@item.Id">Collect</a></td>
             </tr>
         }
     </table>

@@ -17,9 +17,11 @@ namespace ZeroHunger.Database
         public int Id { get; set; }
         public int Order_Id { get; set; }
         public int Employee_Id { get; set; }
+        public int Restaurant_Id { get; set; }
         public System.DateTime Collection_Time { get; set; }
     
         public virtual Employee Employee { get; set; }
         public virtual Order Order { get; set; }
+        public virtual Restaurant Restaurant { get; set; }
     }
 }

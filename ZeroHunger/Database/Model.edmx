@@ -22,6 +22,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Order_Id" Type="int" Nullable="false" />
           <Property Name="Employee_Id" Type="int" Nullable="false" />
+          <Property Name="Restaurant_Id" Type="int" Nullable="false" />
           <Property Name="Collection_Time" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="Orders">
@@ -76,6 +77,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_History_Restaurants">
+          <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1" />
+          <End Role="History" Type="Self.History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurants">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="History">
+              <PropertyRef Name="Restaurant_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Orders_Employees">
           <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
@@ -126,6 +139,10 @@
             <End Role="Orders" EntitySet="Orders" />
             <End Role="History" EntitySet="History" />
           </AssociationSet>
+          <AssociationSet Name="FK_History_Restaurants" Association="Self.FK_History_Restaurants">
+            <End Role="Restaurants" EntitySet="Restaurants" />
+            <End Role="History" EntitySet="History" />
+          </AssociationSet>
           <AssociationSet Name="FK_Orders_Employees" Association="Self.FK_Orders_Employees">
             <End Role="Employees" EntitySet="Employees" />
             <End Role="Orders" EntitySet="Orders" />
@@ -163,9 +180,11 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Order_Id" Type="Int32" Nullable="false" />
           <Property Name="Employee_Id" Type="Int32" Nullable="false" />
+          <Property Name="Restaurant_Id" Type="Int32" Nullable="false" />
           <Property Name="Collection_Time" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Collections_Employees" FromRole="History" ToRole="Employees" />
           <NavigationProperty Name="Order" Relationship="Self.FK_Collections_Orders" FromRole="History" ToRole="Orders" />
+          <NavigationProperty Name="Restaurant" Relationship="Self.FK_History_Restaurants" FromRole="History" ToRole="Restaurants" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -199,6 +218,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Histories" Relationship="Self.FK_History_Restaurants" FromRole="Restaurants" ToRole="History" />
           <NavigationProperty Name="Requests" Relationship="Self.FK_Requests_Restaurants" FromRole="Restaurants" ToRole="Requests" />
         </EntityType>
         <Association Name="FK_Collections_Employees">
@@ -234,6 +254,18 @@
             </Principal>
             <Dependent Role="History">
               <PropertyRef Name="Order_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_History_Restaurants">
+          <End Role="Restaurants" Type="Self.Restaurant" Multiplicity="1" />
+          <End Role="History" Type="Self.History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurants">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="History">
+              <PropertyRef Name="Restaurant_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -279,6 +311,10 @@
             <End Role="Orders" EntitySet="Orders" />
             <End Role="History" EntitySet="Histories" />
           </AssociationSet>
+          <AssociationSet Name="FK_History_Restaurants" Association="Self.FK_History_Restaurants">
+            <End Role="Restaurants" EntitySet="Restaurants" />
+            <End Role="History" EntitySet="Histories" />
+          </AssociationSet>
           <AssociationSet Name="FK_Orders_Requests" Association="Self.FK_Orders_Requests">
             <End Role="Requests" EntitySet="Requests" />
             <End Role="Orders" EntitySet="Orders" />
@@ -311,6 +347,7 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
                 <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
+                <ScalarProperty Name="Restaurant_Id" ColumnName="Restaurant_Id" />
                 <ScalarProperty Name="Collection_Time" ColumnName="Collection_Time" />
               </MappingFragment>
             </EntityTypeMapping>

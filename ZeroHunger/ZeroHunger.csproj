@@ -130,6 +130,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\RestaurantsController.cs" />
     <Compile Include="Database\Employee.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -238,14 +239,15 @@
     <Content Include="Views\Restaurants\Index.cshtml" />
     <Content Include="Views\Restaurants\MakeRequest.cshtml" />
     <Content Include="Views\Restaurants\ViewRequests.cshtml" />
-    <Content Include="Views\Employees\Order.cshtml" />
-    <Content Include="Views\Employees\CollectionHistory.cshtml" />
-    <Content Include="Views\Employees\Orders.cshtml" />
-    <Content Include="Views\Employees\CollectOrders.cshtml" />
+    <Content Include="Views\Orders\Order.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Orders\History.cshtml" />
+    <Content Include="Views\Orders\CollectOrders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Employees\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
