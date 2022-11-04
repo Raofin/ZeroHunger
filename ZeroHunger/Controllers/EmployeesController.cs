@@ -91,11 +91,8 @@ namespace ZeroHunger.Controllers
                           where order.Employee_id == id
                           select order).ToList();
 
-            foreach (var order in orders.ToList())
-            {
-                if (order.Status != "Pending")
-                    orders.Remove(order);
-            }
+            foreach (var order in orders.Where(order => order.Status != "Pending"))
+                orders.Remove(order);
 
             return View(orders);
         }
@@ -105,25 +102,23 @@ namespace ZeroHunger.Controllers
         {
             var db = new ZeroHungerEntities();
             var order = db.Orders.SingleOrDefault(o => o.Id == id);
+
+            if (order == null) 
+                return RedirectToAction("Orders", "Employees");
+
+            order.Status = "Collected";
+            db.Histories.Add(new History {
+                Order_Id = order.Id,
+                Employee_Id = order.Employee_id,
+                Collection_Time = DateTime.Now
+            });
+
             var request = db.Requests.SingleOrDefault(r => r.Id == order.Request_Id);
 
-            if (order != null)
-            {
-                order.Status = "Collected";
-                db.Histories.Add(new History {
-                    Order_Id = order.Id,
-                    Employee_Id = order.Employee_id,
-                    Collection_Time = DateTime.Now
-                });
-            }
-
             if (request != null)
-            {
                 request.Status = "Collected";
-            }
 
             db.SaveChanges();
-
 
             return RedirectToAction("CollectOrders/" + order.Employee_id, "Employees");
         }
