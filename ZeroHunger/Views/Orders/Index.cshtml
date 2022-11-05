@@ -11,7 +11,7 @@
     }
     else
     {
-        <table class="table table-bordered">
+        <table class="table table-striped table-bordered">
             <tr>
                 <th>Request Id</th>
                 <th>Restaurant Name</th>
@@ -37,7 +37,7 @@
                     @if (expireIn == "Expired!") {
                         <td>Expired!</td>
                     } else {
-                        <td><a href="/Orders/Collect/@item.Id">Collect & Distribute</a></td>
+                        <td><a href="/Orders/Collect/@item.Id" class="btn btn-primary">Collect & Distribute</a></td>
                     }
                 </tr>
             }

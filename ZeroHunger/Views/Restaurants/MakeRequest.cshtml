@@ -1,11 +1,17 @@
 ﻿
 @{
     ViewBag.Title = "MakeRequest";
+    var pending = Model.Requests.Count - Model.Histories.Count;
 }
 
-<h2>MakeRequest</h2>
+<h1>@Model.Name</h1>
+<p style="font-size: large">
+    <b>Restaurant Location:</b> @Model.Location<br>
+    <b>Total Requests:</b> @Model.Requests.Count<br>
+    <b>Pending / Not Collected: </b>@pending<br>
+</p>
 <br />
-<div>
+<div class="h-100 d-flex align-items-center justify-content-center">
     <form method="post" id="login">
         <div class="form-group">
             <label for="name">Restaurant Name</label>
@@ -16,8 +22,8 @@
             <textarea class="form-control"  id="description" name="description" rows="4" cols="50" maxlength="200" placeholder="Enter request description here"></textarea>
         </div>
         <div class="form-group">
-            <label for="expire">Expire Date</label>
-            <input type="datetime-local" class="form-control" id="expire" name="expire">
+            <label for="expiry_date">Expire Date</label>
+            <input type="datetime-local" class="form-control" id="expiry_date" name="expiry_date">
         </div>
         <button type="submit" class="btn btn-primary">Post Request</button>
     </form>

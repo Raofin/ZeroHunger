@@ -8,30 +8,49 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <h1>Zero Hunger</h1>
-                <a href="/Home" class="btn btn-primary">Home</a>
-                <a href="/Home/Employees" class="btn btn-primary">Employees</a>
-                <a href="/Restaurants" class="btn btn-primary">Restaurants</a>
-                <a href="/Orders" class="btn btn-primary">Orders</a>
-                <a href="/Orders/History" class="btn btn-primary">Collection History</a>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <h1>
+            <a href="/" style="color: inherit">
+                <img src="/Content/logo.svg" alt="Logo" height="40" />
+                Zero Hunger
+            </a>
+        </h1>
+        
+        <div class="btn-group">
+            <a href="/Home" class="btn btn-primary">Home</a>
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Employees</button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/Home/AddEmployees">Add Employee</a></li>
+                    <li><a class="dropdown-item" href="/Home/Employees">Manage Employees</a></li>
+                </ul>
             </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Restaurants</button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Add New Restaurant</a></li>
+                    <li><a class="dropdown-item" href="/Restaurants">View Restaurants & Manage Requests</a></li>
+                </ul>
+            </div>
+            <a href="/Orders" class="btn btn-primary">Collect & Distribute</a>
+            <a href="/Orders/History" class="btn btn-primary">Collection History</a>
         </div>
     </div>
-    <div class="container body-content">
-        <hr />
-        <br><br>
-        @RenderBody()
-        
-        <footer>
-            <p>&copy; @DateTime.Now.Year By <a href="https://raofin.net">Raofin</a></p>
-        </footer>
-    </div>
+</div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+<div class="container body-content">
+    <br><br>
+    @RenderBody()
+    <footer>
+        <hr />
+        <p>&copy; @DateTime.Now.Year By <a href="https://raofin.net">Raofin</a></p>
+    </footer>
+</div>
+
+<script src="~/Content/bootstrap.bundle.min.js"></script>
+@Scripts.Render("~/bundles/jquery")
+@*@Scripts.Render("~/bundles/bootstrap")*@
+@RenderSection("scripts", required: false)
 </body>
 </html>

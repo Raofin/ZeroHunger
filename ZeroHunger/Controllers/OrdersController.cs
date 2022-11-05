@@ -24,7 +24,7 @@ namespace ZeroHunger.Controllers
         }
 
         /*[HttpGet]
-        public ActionResult OrdersByEmployee()
+        public ActionResult OrdersByEmployees()
         {
             var db = new ZeroHungerEntities();
             var employees = (from employee in db.Employees.ToList()
