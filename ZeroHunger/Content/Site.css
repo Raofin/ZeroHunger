@@ -1,6 +1,45 @@
-﻿body {
+﻿@font-face {
+    font-family: ALSHauss;
+    src: url('./Fonts/ALSHauss-Regular.woff2') format('woff2'), 
+         url('./Fonts/ALSHauss-Regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: ALSHauss;
+    src: url('./Fonts/ALSHauss-Bold.woff2') format('woff2'), 
+         url('./Fonts/ALSHauss-Bold.woff') format('woff');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: Inter;
+    src: url('./Fonts/Inter-Regular.woff2') format('woff2'), 
+         url('./Fonts/Inter-Regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: Inter;
+    src: url('./Fonts/Inter-Bold.woff2') format('woff2'), 
+         url('./Fonts/Inter-Bold.woff') format('woff');
+    font-weight: bold;
+}
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
+    font-family: 'ALSHauss', sans-serif !important;
+    min-height: 100vh;
+    margin: 0;
+    position: relative;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+    h1, h2, h3, h4, h5, h6, b {
+    font-weight: bold;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -27,4 +66,25 @@ textarea {
 .navbar-inverse .navbar-toggle:focus {
     background-color: #777;
     border-color: #fff
+}
+
+a, a:hover, a:focus, a:active {
+    text-decoration: none;
+}
+
+.body-content {
+    margin-bottom: 70px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 10%;
+    text-align: center;
+}
+
+.time {
+    font-family: 'Inter', sans-serif;
 }

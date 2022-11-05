@@ -184,6 +184,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\logo.svg" />
     <Content Include="Database\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model.edmx</DependentUpon>
@@ -210,6 +211,14 @@
     <Content Include="Database\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\Fonts\ALSHauss-Bold.woff" />
+    <Content Include="Content\Fonts\ALSHauss-Bold.woff2" />
+    <Content Include="Content\Fonts\ALSHauss-Regular.woff" />
+    <Content Include="Content\Fonts\ALSHauss-Regular.woff2" />
+    <Content Include="Content\Fonts\Inter-Bold.woff" />
+    <Content Include="Content\Fonts\Inter-Bold.woff2" />
+    <Content Include="Content\Fonts\Inter-Regular.woff" />
+    <Content Include="Content\Fonts\Inter-Regular.woff2" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />

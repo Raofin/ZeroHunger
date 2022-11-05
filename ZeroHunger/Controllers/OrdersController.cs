@@ -13,6 +13,20 @@ namespace ZeroHunger.Controllers
         public ActionResult Index()
         {
             var db = new ZeroHungerEntities();
+            var orders = db.Orders.ToList();
+
+            foreach (var order in orders.ToList().Where(order => order.Status != "Pending"))
+                orders.Remove(order);
+
+            var sortedOrders = orders.OrderBy(x => x.Request_Id).ToList();
+
+            return View(sortedOrders);
+        }
+
+        /*[HttpGet]
+        public ActionResult OrdersByEmployee()
+        {
+            var db = new ZeroHungerEntities();
             var employees = (from employee in db.Employees.ToList()
                              from order in db.Orders.ToList()
                              where employee.Id == order.Employee_id && order.Status == "Pending"
@@ -30,10 +44,10 @@ namespace ZeroHunger.Controllers
                         employeeModel.Add(employee);
                     }
                 }
-            }*/
+            }#1#
 
             return View(employees);
-        }
+        }*/
 
         [HttpGet]
         public ActionResult Order(int id)
@@ -72,9 +86,6 @@ namespace ZeroHunger.Controllers
         public ActionResult CollectOrders()
         {
             var db = new ZeroHungerEntities();
-            /*var orders = (from order in db.Orders
-                          where order.Employee_id == id
-                          select order).ToList();*/
             var orders = db.Orders.ToList();
 
             foreach (var order in orders.ToList().Where(order => order.Status != "Pending"))

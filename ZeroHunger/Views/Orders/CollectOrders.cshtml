@@ -15,20 +15,20 @@
 
         <table class="table table-bordered">
             <tr>
-                <th>Id</th>
                 <th>Request Id</th>
-                <th>Description</th>
                 <th>Restaurant Name</th>
+                <th>Description</th>
+                <th>Employee Name</th>
                 <th>Action</th>
             </tr>
 
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.Id</td>
                     <td>@item.Request_Id</td>
-                    <td>Description</td>
-                    <td>Res Name</td>
+                    <td>@item.Request.Restaurant.Name</td>
+                    <td>@item.Request.Description</td>
+                    <td>@item.Employee.Name</td>
                     <td><a href="/Orders/Collect/@item.Id">Collect</a></td>
                 </tr>
             }

@@ -1,32 +1,49 @@
-﻿
-
-
-@{
+﻿@{
     ViewBag.Title = "Orders";
 }
 
 <h2>Orders</h2>
 
 <div>
-    <table class="table table-bordered">
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Completed Orders</th>
-            <th>Pending</th>
-            <th>Action</th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            var pendingOrders = item.Orders.Count - item.Histories.Count;
+    @if (Model.Count == 0)
+    {
+        <h1>No orders available to collect.</h1>
+    }
+    else
+    {
+        <table class="table table-bordered">
             <tr>
-                <td>@item.Id</td>
-                <td>@item.Name</td>
-                <td>@item.Histories.Count</td>
-                <td>@pendingOrders / 5</td>
-                <td><a href="/Orders/CollectOrders/@item.Id">Collect</a></td>
+                <th>Request Id</th>
+                <th>Restaurant Name</th>
+                <th>Description</th>
+                <th>Employee Name</th>
+                <th>Expire In</th>
+                <th>Action</th>
             </tr>
-        }
-    </table>
+
+            @foreach (var item in Model)
+            {
+                var expiry = DateTime.Now - item.Request.Expiry_Date;
+                var expireIn = expiry < TimeSpan.Zero
+                    ? "Expired!"
+                    : $"{expiry.Days}d, {expiry.Hours}h, {expiry.Minutes}m";
+
+                <tr>
+                    <td>@item.Request_Id</td>
+                    <td>@item.Request.Restaurant.Name</td>
+                    <td>@item.Request.Description</td>
+                    <td>@item.Employee.Name</td>
+                    <td>@expireIn</td>
+                    @if (expireIn == "Expired!") {
+                        <td>Expired!</td>
+                    } else {
+                        <td><a href="/Orders/Collect/@item.Id">Collect & Distribute</a></td>
+                    }
+                </tr>
+            }
+        </table>
+    }
 </div>
+
+
+@*var pendingOrders = item.Orders.Count - item.Histories.Count;*@
