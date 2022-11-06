@@ -1,14 +1,12 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "ViewRequests";
     var pending = Model.Requests.Count - Model.Histories.Count;
 }
 
 <div>
-    <h1>Restaurant Info</h1>
+    <h1>@Model.Name</h1>
     <p style="font-size: large">
-        <b>Name:</b> @Model.Name<br>
-        <b>Location:</b> @Model.Location<br>
+        <b>Restaurant Location:</b> @Model.Location<br>
         <b>Total Requests:</b> @Model.Requests.Count<br>
         <b>Pending / Not Collected: </b>@pending<br>
     </p>
@@ -19,12 +17,17 @@
         <tr>
             <th>Request Id</th>
             <th>Description</th>
-            <th>Expiry Date</th>
+            <th>Expiry_Date</th>
             <th>Expire In</th>
+            <th>Order</th>
         </tr>
 
         @foreach (var item in ViewBag.Requests)
         {
+            if (item.Status == "Collected") {
+                continue;
+            }
+
             var expiry = item.Expiry_Date - DateTime.Now;
             var expireIn = expiry < TimeSpan.Zero
                 ? "Expired!"
@@ -34,10 +37,11 @@
                 <td>@item.Id</td>
                 <td>@item.Description</td>
                 <td class="time">@item.Expiry_Date</td>
-                @if (item.Status == "Collected") {
-                    <td>Already Collected</td>
+                <td>@expireIn</td>
+                @if (item.Status != "Waiting") {
+                    <td>@item.Status</td>
                 } else {
-                    <td>@expireIn</td>
+                    <td><a class="btn btn-primary" href="/Orders/Order/@item.Id">Send Employee to Collect</a></td>
                 }
             </tr>
         }
@@ -46,7 +50,7 @@
     <div class="text-center">
         @foreach (var item in ViewBag.Restaurants)
         {
-            <a href="/Restaurants/ViewRequests/@item.Id" class="btn btn-primary">@item.Name</a>
+            <a href="/Restaurants/OrderRequests/@item.Id" class="btn btn-primary">@item.Name</a>
         }
     </div>
 

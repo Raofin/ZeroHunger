@@ -4,27 +4,46 @@
     var pending = Model.Requests.Count - Model.Histories.Count;
 }
 
-<h1>@Model.Name</h1>
-<p style="font-size: large">
-    <b>Restaurant Location:</b> @Model.Location<br>
-    <b>Total Requests:</b> @Model.Requests.Count<br>
-    <b>Pending / Not Collected: </b>@pending<br>
-</p>
-<br />
-<div class="h-100 d-flex align-items-center justify-content-center">
-    <form method="post" id="login">
-        <div class="form-group">
-            <label for="name">Restaurant Name</label>
-            <input type="text" class="form-control" id="name" name="name" value="@Model.Name" disabled>
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <h1>Restaurant Info</h1>
+        <p style="font-size: large">
+            <b>Name:</b> @Model.Name<br>
+            <b>Location:</b> @Model.Location<br>
+            <b>Total Requests:</b> @Model.Requests.Count<br>
+            <b>Pending / Not Collected: </b>@pending<br>
+        </p>
+        <br />
+    </div>
+
+    <div class="col-md-4">
+        <h2 class="text-center">New Request</h2>
+        <div class="d-flex align-items-center justify-content-center">
+            <form method="post">
+                <div class="form-group">
+                    <label for="description">Request Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="4" cols="50" maxlength="200" placeholder="Enter request description here"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="expiry_date">Expire Date</label>
+                    <input type="datetime-local" class="form-control" id="expiry_date" name="expiry_date">
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Post Request</button>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="description">Request Description</label>
-            <textarea class="form-control"  id="description" name="description" rows="4" cols="50" maxlength="200" placeholder="Enter request description here"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="expiry_date">Expire Date</label>
-            <input type="datetime-local" class="form-control" id="expiry_date" name="expiry_date">
-        </div>
-        <button type="submit" class="btn btn-primary">Post Request</button>
-    </form>
+    </div>
 </div>
+
+<script>
+// set #exptiry_date to current time
+    window.addEventListener('load', () => {
+        var now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        now.setMilliseconds(null)
+        now.setSeconds(null)
+        document.getElementById('expiry_date').value = now.toISOString().slice(0, -1);
+    });
+
+</script>

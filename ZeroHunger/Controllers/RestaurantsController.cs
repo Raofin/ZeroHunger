@@ -48,15 +48,38 @@ namespace ZeroHunger.Controllers
         {
             var db = new ZeroHungerEntities();
             var model = (from restaurant in db.Restaurants
-                         where restaurant.Id == id
-                         select restaurant).SingleOrDefault();
+                where restaurant.Id == id
+                select restaurant).SingleOrDefault();
 
             ViewBag.Restaurants = db.Restaurants.ToList();
             ViewBag.Requests = (from request in db.Requests
-                                where request.Restaurants_Id == id
-                                select request).ToList();
+                where request.Restaurants_Id == id
+                select request).ToList();
 
             return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult OrderRequests(int id)
+        {
+            var db = new ZeroHungerEntities();
+            var model = (from restaurant in db.Restaurants
+                where restaurant.Id == id
+                select restaurant).SingleOrDefault();
+
+            ViewBag.Restaurants = db.Restaurants.ToList();
+            ViewBag.Requests = (from request in db.Requests
+                where request.Restaurants_Id == id
+                select request).ToList();
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult Requests()
+        {
+            var db = new ZeroHungerEntities();
+            return View(db.Restaurants.ToList());
         }
     }
 }

@@ -59,7 +59,8 @@ html {
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 500px;
+    margin-bottom: 20px;
 }
 
 .navbar-inverse .navbar-toggle:hover,

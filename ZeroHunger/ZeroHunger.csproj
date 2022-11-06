@@ -233,7 +233,8 @@
     <Content Include="Views\Orders\Order.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Orders\History.cshtml" />
-    <Content Include="Views\Orders\CollectOrders.cshtml" />
+    <Content Include="Views\Restaurants\Requests.cshtml" />
+    <Content Include="Views\Restaurants\OrderRequests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -79,10 +79,10 @@ namespace ZeroHunger.Controllers
 
             db.SaveChanges();
 
-            return RedirectToAction("ViewRequests/" + request.Restaurants_Id, "Restaurants");
+            return RedirectToAction("OrderRequests/" + request.Restaurants_Id, "Restaurants");
         }
 
-        [HttpGet]
+        /*[HttpGet]
         public ActionResult CollectOrders()
         {
             var db = new ZeroHungerEntities();
@@ -92,7 +92,7 @@ namespace ZeroHunger.Controllers
                 orders.Remove(order);
 
             return View(orders);
-        }
+        }*/
 
         [HttpGet]
         public ActionResult Collect(int id)
@@ -118,7 +118,7 @@ namespace ZeroHunger.Controllers
 
             db.SaveChanges();
 
-            return RedirectToAction("CollectOrders/" + order.Employee_id, "Orders");
+            return RedirectToAction("", "Orders");
         }
 
         [HttpGet]

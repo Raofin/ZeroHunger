@@ -3,28 +3,14 @@
     ViewBag.Title = "Order";
 }
 
-<h2>Order</h2>
-<br />
+<h1>Order Employees to Collect & Distribute</h1>
 <div>
-    <h2>Restaurant Name: @Model.Restaurant.Name</h2>
-    <h2>Restaurant Location: @Model.Restaurant.Location</h2>
-
-    <p><b>Request ID: </b>@Model.Id</p>
-    <p><b>Description: </b>@Model.Description</p>
-    <p><b>Expiry Date: </b>@Model.Expiry_Date</p>
-
-    @*<form method="post" id="login">
-            <label for="employees">Employees</label>
-            <select class="form-control" name="Employees" id="employees">
-                <option>Select Employee...</option>
-                @foreach (var item in ViewBag.Employees)
-                {
-                    <option value="@item.Id">@item.Name</option>
-                }
-            </select>
-        <button type="submit" class="btn btn-primary">Post Order</button>
-        </form>*@
-    <h1>@Model.Status</h1>
+    <p style="font-size: large">
+        <b>Request Description:</b> @Model.Description<br>
+        <b>Expiry Date:</b> <span class="time">@Model.Expiry_Date</span><br>
+        <b>Restaurant Name:</b> @Model.Restaurant.Name<br>
+        <b>Restaurant Location:</b> @Model.Restaurant.Location<br>
+    </p>
 
     @if (Model.Status == "Collected")
     {
@@ -36,10 +22,10 @@
     }
     else
     {
-        <h1>Employees List</h1>
-        <table class="table table-bordered">
+        <h2 class="text-center">Employees List</h2>
+        <table class="table table-striped table-bordered">
             <tr>
-                <th>Name</th>
+                <th>Employee Name</th>
                 <th>Email</th>
                 <th>Total Orders</th>
                 <th>Action</th>
