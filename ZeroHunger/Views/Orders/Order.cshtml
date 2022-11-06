@@ -3,7 +3,7 @@
     ViewBag.Title = "Order";
 }
 
-<h1>Order Employees to Collect & Distribute</h1>
+<h1>Assign Employees to Collect & Distribute</h1>
 <div>
     <p style="font-size: large">
         <b>Request Description:</b> @Model.Description<br>
@@ -38,7 +38,7 @@
                     <td>@item.Email</td>
                     <td>@item.Orders.Count</td>
                     <td>
-                        <a href="/Orders/SendOrder?id=@item.Id&requestId=@Model.Id" class="btn btn-primary">Order</a>
+                        <a href="/Orders/SendOrder?id=@item.Id&requestId=@Model.Id" class="btn btn-primary">Assign Employee</a>
                     </td>
                 </tr>
             }
