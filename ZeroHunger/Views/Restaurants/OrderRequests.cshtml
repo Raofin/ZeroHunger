@@ -40,7 +40,11 @@
                 <td>@item.Description</td>
                 <td class="time">@item.Expiry_Date</td>
                 <td>@expireIn</td>
-                @if (item.Status != "Waiting")
+                @if (expireIn == "Expired!")
+                {
+                    <td>Expired!</td>
+                }
+                else if (item.Status != "Waiting")
                 {
                     <td>@item.Status</td>
                 }

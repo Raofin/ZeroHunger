@@ -128,7 +128,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\RestaurantsController.cs" />
@@ -235,11 +234,11 @@
     <Content Include="Views\Orders\History.cshtml" />
     <Content Include="Views\Restaurants\Requests.cshtml" />
     <Content Include="Views\Restaurants\OrderRequests.cshtml" />
+    <Content Include="Views\Home\AddRestaurants.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Employees\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

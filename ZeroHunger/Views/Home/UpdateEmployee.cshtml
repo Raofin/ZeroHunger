@@ -3,27 +3,33 @@
     ViewBag.Title = "UpdateEmployee";
 }
 
-<h2>UpdateEmployee</h2>
-<br />
-<div>
-    <form method="post" id="login">
+<div class="row d-flex justify-content-center">
+    <form method="post" id="login" class="col-md-6">
+        <h2 class="text-center">Update Employee Details</h2>
         <div class="form-group">
             <label for="name">Username</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Enter employee name here" value="@Model.Name">
+            <input type="text" class="form-control" id="name" name="name"
+                   placeholder="Enter employee name here" value="@Model.Name">
         </div>
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email address here" value="@Model.Email">
+            <input type="email" class="form-control" id="email" name="email" 
+                   placeholder="Enter email address here" value="@Model.Email">
         </div>
         <div class="form-group">
             <label for="age">Age</label>
-            <input type="text" class="form-control" id="age" name="age" placeholder="Enter age here" value="@Model.Age">
+            <input type="text" class="form-control" id="age" name="age" 
+                   placeholder="Enter age here" value="@Model.Age">
         </div>
-        <div class="form-group">
-            <label for="sex">Sex</label>
-            <input type="text" class="form-control" id="sex" name="sex" placeholder="Enter sex here" value="@Model.Sex">
+        <label for="gender"> Select you gender</label>
+        <select name="gender" class="form-control" id="gender">
+            <option value="none">Select Gender...</option>
+            <option value="male" selected>Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Add Employee</button>
         </div>
-        <a href="./employees" class="btn btn-primary">Back</a>
-        <button type="submit" class="btn btn-primary">Update</button>
     </form>
 </div>

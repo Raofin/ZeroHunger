@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -30,6 +31,7 @@ namespace ZeroHunger.Controllers
         public ActionResult AddEmployees(Employee model)
         {
             var db = new ZeroHungerEntities();
+            model.Sex = "Male";
             db.Employees.Add(model);
             db.SaveChanges();
             return RedirectToAction("Employees", "Home");
@@ -72,11 +74,26 @@ namespace ZeroHunger.Controllers
                 employee.Name = model.Name;
                 employee.Email = model.Email;
                 employee.Age = model.Age;
-                employee.Sex = model.Sex;
+                employee.Sex = "Male";
                 db.SaveChanges();
             }
 
             return RedirectToAction("Employees", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult AddRestaurants()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddRestaurants(Restaurant restaurant)
+        {
+            var db = new ZeroHungerEntities();
+            db.Restaurants.Add(restaurant);
+            db.SaveChanges();
+            return RedirectToAction("", "Restaurants");
         }
     }
 }
