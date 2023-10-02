@@ -21,4 +21,4 @@ It is a food collection and distribution management system for an NGO. The featu
 <img src="/Readme_md/6.png">
 
 ## License
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [BSD-3-Clause license](LICENSE).
